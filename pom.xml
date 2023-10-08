@@ -14,6 +14,7 @@
     <modules>
         <module>kafka-handler</module>
         <module>payment-processor-main</module>
+        <module>payment-logger-service</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

@@ -2,17 +2,17 @@ package com.payment.processor.strategy;
 
 import com.payment.processor.exception.BadRequestException;
 import com.payment.processor.exception.PaymentNotFoundException;
-import com.payment.processor.model.dto.SystemLogRequestDto;
-import com.payment.processor.model.dto.PaymentRequestDto;
+import com.payment.processor.dto.PaymentRequestDto;
+import com.payment.processor.dto.SystemLogRequestDto;
+import com.payment.processor.service.PaymentValidationService;
 import com.payment.processor.util.ErrorType;
 import com.payment.processor.util.PaymentType;
-import com.payment.processor.service.LoggerService;
-import com.payment.processor.service.PaymentValidationService;
 import feign.RetryableException;
 import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class OnlinePaymentProcessorStrategy implements PaymentProcessorStrategy {
 
     private final PaymentValidationService validationService;
-    private final LoggerService loggerService;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public PaymentType getType() {
@@ -37,12 +37,12 @@ public class OnlinePaymentProcessorStrategy implements PaymentProcessorStrategy 
             boolean isValidated = validationService.validatePaymentDetails(paymentDto);
 
             if (isValidated) {
-                loggerService.logPaymentDetails(paymentDto);
+                kafkaTemplate.send("processed-payments",paymentDto);
             }
 
         } catch (Exception e) {
             SystemLogRequestDto systemLogRequest = createSystemLogRequest(e, paymentId);
-            loggerService.logErrorDetails(systemLogRequest);
+            kafkaTemplate.send("error-payments",systemLogRequest);
         }
     }
 
@@ -60,22 +60,14 @@ public class OnlinePaymentProcessorStrategy implements PaymentProcessorStrategy 
 
         errorDescription = exception.getMessage();
 
-        return SystemLogRequestDto.builder()
-                .payment_id(paymentId)
-                .error_type(errorType)
-                .error_description(errorDescription)
-                .build();
+        return SystemLogRequestDto.builder().payment_id(paymentId).error_type(errorType).error_description(errorDescription).build();
     }
 
     private boolean isNetworkException(Exception exception) {
-        return exception instanceof PaymentNotFoundException ||
-                exception instanceof BadRequestException ||
-                exception instanceof RetryableException;
+        return exception instanceof PaymentNotFoundException || exception instanceof BadRequestException || exception instanceof RetryableException;
     }
 
     private boolean isDatabaseException(Exception exception) {
-        return exception instanceof DataIntegrityViolationException ||
-                exception instanceof PersistenceException ||
-                exception instanceof JpaSystemException;
+        return exception instanceof DataIntegrityViolationException || exception instanceof PersistenceException || exception instanceof JpaSystemException;
     }
 }

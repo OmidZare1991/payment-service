@@ -1,6 +1,7 @@
-package com.payment.processor.service;
+package com.payment.logger.service;
 
-import com.payment.processor.model.Account;
+
+import com.payment.logger.model.Account;
 
 public interface AccountService {
     Account findByAccountId(Integer id);

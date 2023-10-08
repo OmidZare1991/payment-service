@@ -1,4 +1,4 @@
-package com.payment.processor.model;
+package com.payment.logger.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

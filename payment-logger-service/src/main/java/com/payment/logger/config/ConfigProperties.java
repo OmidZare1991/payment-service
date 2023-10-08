@@ -1,4 +1,4 @@
-package com.payment.processor.config;
+package com.payment.logger.config;
 
 
 import lombok.Getter;

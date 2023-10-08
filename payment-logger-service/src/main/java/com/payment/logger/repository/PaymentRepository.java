@@ -1,6 +1,7 @@
-package com.payment.processor.repository;
+package com.payment.logger.repository;
 
-import com.payment.processor.model.Payment;
+
+import com.payment.logger.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

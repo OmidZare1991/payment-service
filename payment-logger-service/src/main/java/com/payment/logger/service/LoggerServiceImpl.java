@@ -1,15 +1,11 @@
-package com.payment.processor.service.impl;
-
-import com.payment.processor.mapper.LoggerServiceMapper;
-import com.payment.processor.model.Account;
-import com.payment.processor.model.Payment;
-import com.payment.processor.model.dto.SystemLogRequestDto;
-import com.payment.processor.model.dto.PaymentRequestDto;
-import com.payment.processor.feign.client.PaymentClient;
-import com.payment.processor.service.AccountService;
-import com.payment.processor.service.LoggerService;
-import com.payment.processor.service.PaymentService;
-import com.payment.processor.util.ErrorType;
+package com.payment.logger.service;
+import com.payment.logger.util.ErrorType;
+import com.payment.logger.mapper.LoggerServiceMapper;
+import com.payment.logger.feign.client.PaymentClient;
+import com.payment.logger.model.Account;
+import com.payment.logger.model.Payment;
+import com.payment.logger.model.dto.PaymentRequestDto;
+import com.payment.logger.model.dto.SystemLogRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.ResourceNotFoundException;

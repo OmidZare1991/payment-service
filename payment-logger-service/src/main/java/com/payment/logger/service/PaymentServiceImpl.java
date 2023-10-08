@@ -1,8 +1,8 @@
-package com.payment.processor.service.impl;
+package com.payment.logger.service;
 
-import com.payment.processor.model.Payment;
-import com.payment.processor.repository.PaymentRepository;
-import com.payment.processor.service.PaymentService;
+
+import com.payment.logger.model.Payment;
+import com.payment.logger.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

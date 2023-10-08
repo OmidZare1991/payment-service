@@ -1,8 +1,8 @@
-package com.payment.processor.service.impl;
+package com.payment.logger.service;
 
-import com.payment.processor.model.Account;
-import com.payment.processor.repository.AccountRepository;
-import com.payment.processor.service.AccountService;
+
+import com.payment.logger.model.Account;
+import com.payment.logger.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.ResourceNotFoundException;

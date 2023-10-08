@@ -1,5 +1,6 @@
-package com.payment.processor.model.dto;
+package com.payment.logger.model.dto;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,6 @@ public class PaymentRequestDto {
     private String paymentType;
     private String creditCard;
     private BigDecimal amount;
+    @SerializedName("createdOn")
     private Timestamp createdOn;
 }

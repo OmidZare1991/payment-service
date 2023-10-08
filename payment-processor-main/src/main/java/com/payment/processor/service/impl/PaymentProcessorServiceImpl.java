@@ -1,6 +1,6 @@
 package com.payment.processor.service.impl;
 
-import com.payment.processor.model.dto.PaymentRequestDto;
+import com.payment.processor.dto.PaymentRequestDto;
 import com.payment.processor.service.PaymentProcessorService;
 import com.payment.processor.util.PaymentType;
 import lombok.RequiredArgsConstructor;

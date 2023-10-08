@@ -1,6 +1,6 @@
 package com.payment.processor.service;
 
-import com.payment.processor.model.dto.PaymentRequestDto;
+import com.payment.processor.dto.PaymentRequestDto;
 import com.payment.processor.util.PaymentType;
 
 public interface PaymentProcessorService {

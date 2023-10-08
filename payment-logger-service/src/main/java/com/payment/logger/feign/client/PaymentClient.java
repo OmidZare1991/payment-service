@@ -1,9 +1,9 @@
-package com.payment.processor.feign.client;
+package com.payment.logger.feign.client;
 
-import com.payment.processor.feign.config.FeignConfig;
-import com.payment.processor.dto.PaymentRequestDto;
-import com.payment.processor.dto.PaymentResponseDto;
-import com.payment.processor.dto.SystemLogRequestDto;
+
+import com.payment.logger.model.dto.PaymentResponseDto;
+import com.payment.logger.model.dto.SystemLogRequestDto;
+import com.payment.logger.feign.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Component
 @FeignClient(name = "paymentClient", url = "http://localhost:9000", configuration = FeignConfig.class)
 public interface PaymentClient {
-
-    @PostMapping("/payment")
-    ResponseEntity<PaymentResponseDto> validate(@RequestBody PaymentRequestDto requestDto);
 
     @PostMapping("/log")
     ResponseEntity<PaymentResponseDto> log(@RequestBody SystemLogRequestDto requestDto);

@@ -1,12 +1,13 @@
 package com.kafka.handler.kafka.mapper;
 
-import com.payment.processor.model.dto.PaymentDto;
-import com.payment.processor.model.dto.PaymentRequestDto;
+import com.payment.processor.dto.PaymentDto;
+import com.payment.processor.dto.PaymentRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 @Mapper(componentModel = "spring")
@@ -16,6 +17,6 @@ public interface KafkaHandlerMapper {
 
     @Named("getDate")
     default Timestamp getDate(){
-        return new Timestamp(new Date().getTime());
+        return new Timestamp(Instant.now().toEpochMilli());
     }
 }

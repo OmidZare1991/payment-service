@@ -1,4 +1,4 @@
-package com.payment.processor.model.dto;
+package com.payment.processor.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

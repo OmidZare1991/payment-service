@@ -1,4 +1,4 @@
-package com.payment.processor.model;
+package com.payment.logger.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "accounts", schema = "public") // Specify the schema name if necessary
+@Table(name = "accounts", schema = "public")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

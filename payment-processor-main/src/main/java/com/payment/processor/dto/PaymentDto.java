@@ -1,4 +1,4 @@
-package com.payment.processor.model.dto;
+package com.payment.processor.dto;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.*;

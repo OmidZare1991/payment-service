@@ -8,10 +8,10 @@
 #    ports:
 #      - '5432'
 
-#version: '3.3'
-#services:
-#  redis:
-#    image: redis:latest
-#    restart: always
-#    ports:
-#      - '6379:6379'
+version: '3.3'
+services:
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'

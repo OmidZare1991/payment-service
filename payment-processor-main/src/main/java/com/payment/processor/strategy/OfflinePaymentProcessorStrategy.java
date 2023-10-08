@@ -1,14 +1,14 @@
 package com.payment.processor.strategy;
 
-import com.payment.processor.model.dto.SystemLogRequestDto;
-import com.payment.processor.model.dto.PaymentRequestDto;
+import com.payment.processor.dto.PaymentRequestDto;
+import com.payment.processor.dto.SystemLogRequestDto;
 import com.payment.processor.util.ErrorType;
 import com.payment.processor.util.PaymentType;
-import com.payment.processor.service.LoggerService;
 import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class OfflinePaymentProcessorStrategy implements PaymentProcessorStrategy {
-    private final LoggerService loggerService;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+
     @Override
     public PaymentType getType() {
         return PaymentType.OFFLINE;
@@ -26,10 +27,10 @@ public class OfflinePaymentProcessorStrategy implements PaymentProcessorStrategy
     public void processPayments(PaymentRequestDto paymentDto) {
         String paymentId = paymentDto.getPaymentId();
         try {
-            loggerService.logPaymentDetails(paymentDto);
+            kafkaTemplate.send("processed-payments", paymentDto);
         } catch (Exception e) {
             SystemLogRequestDto systemLogRequest = createSystemLogRequest(e, paymentId);
-            loggerService.logErrorDetails(systemLogRequest);
+            kafkaTemplate.send("error-payments", systemLogRequest);
         }
     }
 

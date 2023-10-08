@@ -3,8 +3,8 @@ package com.kafka.handler.kafka.handler;
 import com.google.gson.Gson;
 import com.kafka.handler.kafka.mapper.KafkaHandlerMapper;
 
-import com.payment.processor.model.dto.PaymentDto;
-import com.payment.processor.model.dto.PaymentRequestDto;
+import com.payment.processor.dto.PaymentDto;
+import com.payment.processor.dto.PaymentRequestDto;
 import com.payment.processor.service.PaymentProcessorService;
 import com.payment.processor.util.PaymentType;
 import lombok.RequiredArgsConstructor;
